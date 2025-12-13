@@ -1,25 +1,26 @@
 {
-  "name": "advice-slip",
-  "version": "0.0.0",
-  "private": true,
-  "description": "Static page showing one piece of advice: \"Keep it simple\"",
-  "keywords": [
-    "advice"
-  ],
-  "author": "Felipe Gabriel Arend",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fgarend/advice-slip.git"
-  },
-  "bugs": {
-    "url": "https://github.com/fgarend/advice-slip/issues"
-  },
-  "homepage": "https://github.com/fgarend/advice-slip#readme",
-  "engines": {
-    "node": "24.12.0"
-  },
-  "scripts": {
-    "build": "node scripts/build.js"
-  }
+    "name": "advice-slip",
+    "version": "0.0.0",
+    "private": true,
+    "description": "Static page showing one piece of advice: \"Keep it simple\"",
+    "keywords": [
+        "advice"
+    ],
+    "author": "Felipe Gabriel Arend",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/fgarend/advice-slip.git"
+    },
+    "bugs": {
+        "url": "https://github.com/fgarend/advice-slip/issues"
+    },
+    "homepage": "https://github.com/fgarend/advice-slip#readme",
+    "engines": {
+        "node": "24.12.0"
+    },
+    "scripts": {
+        "clean": "node scripts/clean.js",
+        "build": "node scripts/build.js"
+    }
 }
