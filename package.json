@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/fgarend/advice-slip/issues"
   },
-  "homepage": "https://github.com/fgarend/advice-slip#readme"
+  "homepage": "https://github.com/fgarend/advice-slip#readme",
+  "engines": {
+    "node": "24.12.0"
+  }
 }
