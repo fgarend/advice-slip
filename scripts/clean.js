@@ -11,9 +11,9 @@ const buildDir = path.join(process.cwd(), "build");
 
 try {
     fs.rmSync(buildDir, { recursive: true, force: true });
-    console.log("✔ Cleaned build directory");
+    console.log("Cleaned build directory");
 } catch (err) {
-    console.error("✖ Failed to clean build directory");
+    console.error("Failed to clean build directory");
     console.error(err);
     process.exit(1);
 }
