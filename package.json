@@ -2,7 +2,7 @@
     "name": "advice-slip",
     "version": "0.0.3",
     "private": true,
-    "description": "Static page showing one piece of advice: \"Keep it simple\"",
+    "description": "Static page that fetches a random quote from the Advice Slip API",
     "keywords": [
         "advice"
     ],

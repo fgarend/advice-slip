@@ -4,10 +4,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="AdviceSlip shares a single piece of timeless advice: Keep it simple." />
+  <meta name="description" content="AdviceSlip fetches a random piece of advice from the Advice Slip API each time you open the page." />
   <meta name="theme-color" content="#f5f5f5" />
   <meta property="og:title" content="AdviceSlip" />
-  <meta property="og:description" content="Get inspired with a single piece of timeless advice: Keep it simple." />
+  <meta property="og:description" content="Get inspired with random advice sourced live from the Advice Slip API." />
   <meta property="og:type" content="website" />
   <title>AdviceSlip</title>
   <style>
@@ -42,9 +42,43 @@
 </head>
 
 <body>
-  <h1>AdviceSlip</h1>
-  <p>Get inspired with random advice</p>
-  <blockquote>"Keep it simple."</blockquote>
+  <main>
+    <h1>AdviceSlip</h1>
+    <p>Get inspired with random advice</p>
+    <blockquote id="advice" cite="https://api.adviceslip.com/">
+      Loading advice...
+    </blockquote>
+  </main>
+  <script>
+    const ADVICE_API_URL = "https://api.adviceslip.com";
+
+    function renderAdvice(text, citeUrl) {
+      const adviceEl = document.getElementById("advice");
+      adviceEl.textContent = text;
+      adviceEl.setAttribute("cite", citeUrl);
+    }
+
+    async function fetchAdvice(apiUrl) {
+      const response = await fetch(`${apiUrl}/advice`, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error(`Request failed: ${response.status}`);
+      }
+      const data = await response.json();
+      return data.slip;
+    }
+
+    async function loadAdvice(apiUrl) {
+      try {
+        const slip = await fetchAdvice(apiUrl);
+        const citeUrl = slip.id ? `${apiUrl}/advice/${slip.id}` : apiUrl;
+        renderAdvice(slip.advice, citeUrl);
+      } catch (err) {
+        renderAdvice("Unable to load advice right now, so remember: Keep it simple.", apiUrl);
+      }
+    }
+
+    loadAdvice(ADVICE_API_URL);
+  </script>
 </body>
 
 </html>
