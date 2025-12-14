@@ -1,6 +1,6 @@
 {
     "name": "advice-slip",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "private": true,
     "description": "Static page that fetches a random quote from the Advice Slip API",
     "keywords": [
