@@ -19,7 +19,6 @@
       --font-primary: 'Nunito', system-ui, sans-serif;
       --font-secondary: 'Lora', serif;
       --accent-color: hsl(183 31% 34%);
-      --accent-muted: hsl(203 30% 40%);
       --foreground-color: hsl(210 20% 18%);
       --foreground-muted: hsl(210 10% 38%);
       --background-color: hsl(25 25% 96%);
@@ -41,7 +40,7 @@
       color: var(--foreground-color);
     }
 
-    h1 {
+    .title {
       margin-bottom: 0.25rem;
       font-family: var(--font-secondary);
       font-weight: 800;
@@ -51,20 +50,20 @@
       color: var(--accent-color);
     }
 
-    h1 .accent {
+    .title .accent {
       font-family: var(--font-secondary);
       font-weight: 900;
       color: var(--foreground-color);
     }
 
-    p.subtitle {
+    .subtitle {
       margin-top: 0;
       margin-bottom: 4rem;
       font-size: clamp(1rem, 2vw, 1.25rem);
       color: var(--foreground-muted);
     }
 
-    blockquote {
+    .advice-card {
       margin: 2rem auto 0;
       width: min(90vw, 32rem);
       min-height: 10rem;
@@ -83,13 +82,13 @@
       text-align: center;
     }
 
-    blockquote::before,
-    blockquote::after {
+    .advice-card::before,
+    .advice-card::after {
       font-size: 2rem;
       position: absolute;
     }
 
-    blockquote::before {
+    .advice-card::before {
       content: open-quote;
       font-size: 6rem;
       position: absolute;
@@ -97,7 +96,7 @@
       left: -1rem;
     }
 
-    blockquote::after {
+    .advice-card::after {
       content: close-quote;
       font-size: 6rem;
       position: absolute;
@@ -109,9 +108,9 @@
 
 <body>
   <main>
-    <h1>Advice<span class="accent">Slip</span></h1>
+    <h1 class="title">Advice<span class="accent">Slip</span></h1>
     <p class="subtitle">Get inspired with random advice</p>
-    <blockquote id="advice" cite="https://api.adviceslip.com/">
+    <blockquote class="advice-card" id="advice" cite="https://api.adviceslip.com/">
       Loading advice...
     </blockquote>
   </main>
