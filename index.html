@@ -45,7 +45,9 @@
   <main>
     <h1>AdviceSlip</h1>
     <p>Get inspired with random advice</p>
-    <blockquote id="advice">Loading advice...</blockquote>
+    <blockquote id="advice" cite="https://api.adviceslip.com/">
+      Loading advice...
+    </blockquote>
   </main>
   <script>
     async function loadAdvice() {
@@ -57,6 +59,10 @@
         }
         const data = await response.json();
         adviceEl.textContent = data.slip.advice;
+        const citeUrl = data.slip.id
+          ? `https://api.adviceslip.com/advice/${data.slip.id}`
+          : "https://api.adviceslip.com/";
+        adviceEl.setAttribute("cite", citeUrl);
       } catch (err) {
         adviceEl.textContent = "Unable to load advice right now, so remember: Keep it simple.";
       }
