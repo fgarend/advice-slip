@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="AdviceSlip fetches a random piece of advice from the Advice Slip API each time you open the page." />
-  <meta name="theme-color" content="#f5f5f5" />
+  <meta name="theme-color" content="#f4ede7" />
   <meta property="og:title" content="AdviceSlip" />
   <meta property="og:description" content="Get inspired with random advice sourced live from the Advice Slip API." />
   <meta property="og:type" content="website" />
@@ -17,44 +17,57 @@
     :root {
       --font-primary: 'Nunito', system-ui, sans-serif;
       --font-secondary: 'Lora', serif;
+      --accent-color: hsl(183 31% 34%);
+      --accent-muted: hsl(203 30% 40%);
+      --foreground-color: hsl(210 20% 18%);
+      --foreground-muted: hsl(210 10% 38%);
+      --background-color: hsl(25 25% 96%);
     }
 
     body {
-      font-family: var(--font-primary);
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      min-height: 100dvh;
+      font-family: var(--font-primary);
       text-align: center;
-      margin: 0;
-      background-color: #f5f5f5;
-      color: #222;
+      background-color: var(--background-color);
+      color: var(--foreground-color);
     }
 
     h1 {
       margin-bottom: 0.25rem;
       font-family: var(--font-secondary);
       font-size: 2.5rem;
+      font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      font-weight: 800;
+      color: var(--accent-color);
+    }
+
+    h1 .accent {
+      font-family: var(--font-secondary);
+      font-weight: 900;
+      color: var(--foreground-color);
     }
 
     p {
       margin-top: 0;
       margin-bottom: 1rem;
+      color: var(--foreground-muted);
     }
 
     blockquote {
-      font-style: italic;
       margin: 1.5rem 0 0;
+      padding: 1.5rem 2rem;
+      position: relative;
       font-family: var(--font-secondary);
       font-size: 1.5rem;
       line-height: 1.5;
-      position: relative;
-      padding: 1.5rem 2rem;
+      font-style: italic;
     }
 
     blockquote::before,
@@ -79,7 +92,7 @@
 
 <body>
   <main>
-    <h1>AdviceSlip</h1>
+    <h1>Advice<span class="accent">Slip</span></h1>
     <p>Get inspired with random advice</p>
     <blockquote id="advice" cite="https://api.adviceslip.com/">
       Loading advice...
