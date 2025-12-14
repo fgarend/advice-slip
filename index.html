@@ -9,10 +9,18 @@
   <meta property="og:title" content="AdviceSlip" />
   <meta property="og:description" content="Get inspired with random advice sourced live from the Advice Slip API." />
   <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <title>AdviceSlip</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Lora:ital,wght@0,600;1,500;1,600&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --font-primary: 'Nunito', system-ui, sans-serif;
+      --font-secondary: 'Lora', serif;
+    }
+
     body {
-      font-family: system-ui, sans-serif;
+      font-family: var(--font-primary);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -27,6 +35,11 @@
 
     h1 {
       margin-bottom: 0.25rem;
+      font-family: var(--font-secondary);
+      font-size: 2.5rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 800;
     }
 
     p {
@@ -37,6 +50,9 @@
     blockquote {
       font-style: italic;
       margin: 1.5rem 0 0;
+      font-family: var(--font-secondary);
+      font-size: 1.5rem;
+      line-height: 1.5;
     }
   </style>
 </head>
