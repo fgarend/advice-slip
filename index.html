@@ -23,6 +23,7 @@
       --foreground-color: hsl(210 20% 18%);
       --foreground-muted: hsl(210 10% 38%);
       --background-color: hsl(25 25% 96%);
+      --surface-color: hsl(0 0% 100%);
     }
 
     body {
@@ -33,6 +34,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 1rem;
       font-family: var(--font-primary);
       text-align: center;
       background-color: var(--background-color);
@@ -42,8 +44,8 @@
     h1 {
       margin-bottom: 0.25rem;
       font-family: var(--font-secondary);
-      font-size: clamp(2.5rem, 5vw, 3.25rem);
       font-weight: 800;
+      font-size: clamp(2.5rem, 5vw, 3.25rem);
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--accent-color);
@@ -55,21 +57,30 @@
       color: var(--foreground-color);
     }
 
-    p {
+    p.subtitle {
       margin-top: 0;
-      margin-bottom: 1rem;
+      margin-bottom: 4rem;
       font-size: clamp(1rem, 2vw, 1.25rem);
       color: var(--foreground-muted);
     }
 
     blockquote {
-      margin: 1.5rem 0 0;
-      padding: 1.5rem 2rem;
+      margin: 2rem auto 0;
+      width: min(90vw, 32rem);
+      min-height: 10rem;
+      padding: 2rem 2.5rem;
       position: relative;
       font-family: var(--font-secondary);
-      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      font-size: clamp(1.35rem, 3.5vw, 1.9rem);
       line-height: 1.6;
       font-style: italic;
+      font-weight: 600;
+      background-color: var(--surface-color);
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
 
     blockquote::before,
@@ -80,14 +91,18 @@
 
     blockquote::before {
       content: open-quote;
-      left: 1rem;
-      top: 1rem;
+      font-size: 6rem;
+      position: absolute;
+      top: -3.25rem;
+      left: -1rem;
     }
 
     blockquote::after {
       content: close-quote;
-      right: 1rem;
-      bottom: 1rem;
+      font-size: 6rem;
+      position: absolute;
+      bottom: -6rem;
+      right: -1rem;
     }
   </style>
 </head>
@@ -95,7 +110,7 @@
 <body>
   <main>
     <h1>Advice<span class="accent">Slip</span></h1>
-    <p>Get inspired with random advice</p>
+    <p class="subtitle">Get inspired with random advice</p>
     <blockquote id="advice" cite="https://api.adviceslip.com/">
       Loading advice...
     </blockquote>
