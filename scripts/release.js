@@ -56,7 +56,7 @@ function readVersion() {
 }
 
 function bumpVersion(releaseArg) {
-    run(`npm version ${releaseArg}`);
+    run(`npm version ${releaseArg} --message "chore(release): bump to %s"`);
     const version = readVersion();
     console.log(`Version bumped to ${version}`);
     return version;
