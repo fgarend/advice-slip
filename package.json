@@ -1,6 +1,6 @@
 {
     "name": "advice-slip",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "private": true,
     "description": "Static page showing one piece of advice: \"Keep it simple\"",
     "keywords": [
