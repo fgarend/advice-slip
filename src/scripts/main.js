@@ -2,22 +2,23 @@ const ADVICE_API_URL = "https://api.adviceslip.com";
 const LOADING_MESSAGE = "Loading advice...";
 const FALLBACK_MESSAGE = "Unable to load advice right now, so remember: Keep it simple.";
 
+const adviceEl = document.getElementById("advice");
+const citationEl = document.getElementById("advice-citation");
+const citationLinkEl = citationEl.querySelector("a");
+const newAdviceBtn = document.getElementById("new-advice-btn");
+
 function updateBlockquote(text, citeUrl) {
-  const blockquoteEl = document.getElementById("advice");
-  blockquoteEl.setAttribute("cite", citeUrl);
-  blockquoteEl.textContent = text;
+  adviceEl.setAttribute("cite", citeUrl);
+  adviceEl.textContent = text;
 }
 
 function showCitation(slipId, citeUrl) {
-  const citationEl = document.getElementById("advice-citation");
-  const link = citationEl.querySelector("a");
-  link.href = citeUrl;
-  link.textContent = `#${slipId}`;
+  citationLinkEl.href = citeUrl;
+  citationLinkEl.textContent = `#${slipId}`;
   citationEl.style.visibility = "visible";
 }
 
 function hideCitation() {
-  const citationEl = document.getElementById("advice-citation");
   citationEl.style.visibility = "hidden";
 }
 
@@ -62,8 +63,6 @@ async function loadAdvice() {
     renderFallback();
   }
 }
-
-const newAdviceBtn = document.getElementById("new-advice-btn");
 
 const handleLoadAdvice = async () => {
   newAdviceBtn.disabled = true;
