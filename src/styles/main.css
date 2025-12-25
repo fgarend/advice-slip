@@ -128,7 +128,7 @@ main {
 }
 
 .advice-citation a:hover,
-.advice-citation a:focus {
+.advice-citation a:focus-visible {
   border-bottom-color: var(--accent-color);
 }
 
@@ -152,7 +152,7 @@ footer a {
 }
 
 footer a:hover,
-footer a:focus {
+footer a:focus-visible {
   color: var(--foreground-color);
 }
 
@@ -172,7 +172,7 @@ footer a:focus {
 }
 
 .cta-button:hover,
-.cta-button:focus {
+.cta-button:focus-visible {
   filter: brightness(1.1);
   box-shadow: 3px 4px 6px rgba(0, 0, 0, 0.35);
 }
