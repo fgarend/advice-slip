@@ -8,6 +8,8 @@
   --foreground-muted: hsl(210 14% 30%);
   --background-color: hsl(30 28% 96%);
   --surface-color: hsl(0 0% 100%);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-md: 3px 4px 6px rgba(0, 0, 0, 0.35);
 }
 
 *,
@@ -193,18 +195,18 @@ footer a:focus-visible {
   border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
 }
 
 .cta-button:hover,
 .cta-button:focus-visible {
   background-color: var(--accent-hover);
-  box-shadow: 3px 4px 6px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--shadow-md);
 }
 
 .cta-button:active {
   background-color: var(--accent-active);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
 }
 
 .cta-button:disabled {
