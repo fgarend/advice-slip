@@ -268,11 +268,7 @@
       return data.slip;
     }
 
-    async function loadAdvice(button = null) {
-      if (button) {
-        button.disabled = true;
-      }
-
+    async function loadAdvice() {
       renderLoading();
 
       try {
@@ -280,20 +276,20 @@
         renderAdvice(slip);
       } catch (err) {
         renderFallback();
-      } finally {
-        if (button) {
-          button.disabled = false;
-        }
       }
     }
 
     const newAdviceBtn = document.getElementById("new-advice-btn");
 
-    loadAdvice(newAdviceBtn);
+    const handleLoadAdvice = async () => {
+      newAdviceBtn.disabled = true;
+      await loadAdvice();
+      newAdviceBtn.disabled = false;
+    };
 
-    newAdviceBtn.addEventListener("click", () => {
-      loadAdvice(newAdviceBtn);
-    });
+    handleLoadAdvice();
+
+    newAdviceBtn.addEventListener("click", handleLoadAdvice);
   </script>
 </body>
 
