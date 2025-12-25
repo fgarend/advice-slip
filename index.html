@@ -71,6 +71,10 @@
     .advice-card {
       margin: 2rem auto 0;
       width: min(90vw, 32rem);
+    }
+
+    #advice {
+      margin: 0;
       min-height: 10rem;
       padding: 2rem 2.5rem;
       box-sizing: border-box;
@@ -88,22 +92,47 @@
       text-align: center;
     }
 
-    .advice-card::before,
-    .advice-card::after {
+    #advice::before,
+    #advice::after {
       font-size: 6rem;
       position: absolute;
     }
 
-    .advice-card::before {
+    #advice::before {
       content: open-quote;
       top: -3.25rem;
       left: -1rem;
     }
 
-    .advice-card::after {
+    #advice::after {
       content: close-quote;
       bottom: -6rem;
       right: -1rem;
+    }
+
+    .advice-citation {
+      margin-top: 1.5rem;
+      padding-right: 1.5rem;
+      font-family: var(--font-primary);
+      font-size: 0.875rem;
+      font-style: normal;
+      font-weight: 600;
+      color: var(--foreground-muted);
+      text-align: right;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .advice-citation a {
+      color: var(--accent-color);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s ease;
+    }
+
+    .advice-citation a:hover,
+    .advice-citation a:focus {
+      border-bottom-color: var(--accent-color);
     }
   </style>
 </head>
@@ -112,17 +141,47 @@
   <main>
     <h1 class="title">Advice<span class="accent">Slip</span></h1>
     <p class="subtitle">Get inspired with random advice</p>
-    <blockquote class="advice-card" id="advice" cite="https://api.adviceslip.com/">
-      Loading advice...
-    </blockquote>
+    <figure class="advice-card" id="advice-container">
+      <blockquote id="advice" cite="https://api.adviceslip.com/">
+        Loading advice...
+      </blockquote>
+    </figure>
   </main>
   <script>
     const ADVICE_API_URL = "https://api.adviceslip.com";
 
-    function renderAdvice(text, citeUrl) {
-      const adviceEl = document.getElementById("advice");
-      adviceEl.textContent = text;
-      adviceEl.setAttribute("cite", citeUrl);
+    function renderAdvice(slip, apiUrl) {
+      const blockquoteEl = document.getElementById("advice");
+      const text = slip.advice || slip;
+      const citeUrl = slip.id ? `${apiUrl}/advice/${slip.id}` : apiUrl;
+
+      blockquoteEl.setAttribute("cite", citeUrl);
+      blockquoteEl.textContent = text;
+
+      const container = document.getElementById("advice-container");
+      let captionEl = document.getElementById("advice-citation");
+
+      if (slip.id) {
+        if (!captionEl) {
+          captionEl = document.createElement('figcaption');
+          captionEl.id = 'advice-citation';
+          captionEl.className = 'advice-citation';
+          container.appendChild(captionEl);
+        }
+
+        const link = document.createElement('a');
+        link.href = citeUrl;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = `#${slip.id}`;
+
+        captionEl.innerHTML = '— Advice Slip API ';
+        captionEl.appendChild(link);
+      } else {
+        if (captionEl) {
+          captionEl.remove();
+        }
+      }
     }
 
     async function fetchAdvice(apiUrl) {
@@ -137,8 +196,7 @@
     async function loadAdvice(apiUrl) {
       try {
         const slip = await fetchAdvice(apiUrl);
-        const citeUrl = slip.id ? `${apiUrl}/advice/${slip.id}` : apiUrl;
-        renderAdvice(slip.advice, citeUrl);
+        renderAdvice(slip, apiUrl);
       } catch (err) {
         renderAdvice("Unable to load advice right now, so remember: Keep it simple.", apiUrl);
       }
