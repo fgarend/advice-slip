@@ -12,11 +12,11 @@ class AdviceService {
     return data.slip;
   }
 
-  getBaseUrl() {
+  getApiBaseUrl() {
     return this.apiUrl;
   }
 
-  getAdviceUrl(slipId) {
+  buildAdviceUrl(slipId) {
     return slipId ? `${this.apiUrl}/advice/${slipId}` : this.apiUrl;
   }
 }
@@ -29,7 +29,7 @@ class AdviceRenderer {
     this.button = document.getElementById("new-advice-btn");
   }
 
-  updateBlockquote(text, citeUrl) {
+  setAdviceText(text, citeUrl) {
     this.adviceEl.setAttribute("cite", citeUrl);
     this.adviceEl.textContent = text;
   }
@@ -45,7 +45,7 @@ class AdviceRenderer {
   }
 
   showAdvice(slip, citeUrl) {
-    this.updateBlockquote(slip.advice, citeUrl);
+    this.setAdviceText(slip.advice, citeUrl);
 
     if (slip.id) {
       this.showCitation(slip.id, citeUrl);
@@ -55,12 +55,12 @@ class AdviceRenderer {
   }
 
   showLoading(baseUrl) {
-    this.updateBlockquote("Loading advice...", baseUrl);
+    this.setAdviceText("Loading advice...", baseUrl);
     this.hideCitation();
   }
 
   showFallback(baseUrl) {
-    this.updateBlockquote("Unable to load advice right now, so remember: Keep it simple.", baseUrl);
+    this.setAdviceText("Unable to load advice right now, so remember: Keep it simple.", baseUrl);
     this.hideCitation();
   }
 
@@ -81,12 +81,12 @@ class AdviceApp {
 
   async getNewAdvice() {
     this.renderer.disableCtaButton();
-    const baseUrl = this.service.getBaseUrl();
+    const baseUrl = this.service.getApiBaseUrl();
     this.renderer.showLoading(baseUrl);
 
     try {
       const slip = await this.service.fetchAdvice();
-      const citeUrl = this.service.getAdviceUrl(slip.id);
+      const citeUrl = this.service.buildAdviceUrl(slip.id);
       this.renderer.showAdvice(slip, citeUrl);
     } catch (err) {
       this.renderer.showFallback(baseUrl);
