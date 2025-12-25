@@ -272,6 +272,9 @@
         button.disabled = true;
       }
 
+      updateBlockquote("Loading advice...", ADVICE_API_URL);
+      hideCitation();
+
       try {
         const slip = await fetchAdvice(apiUrl);
         renderAdvice(slip, apiUrl);
