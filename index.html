@@ -134,6 +134,30 @@
     .advice-citation a:focus {
       border-bottom-color: var(--accent-color);
     }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--foreground-muted);
+      background-color: var(--background-color);
+    }
+
+    footer a {
+      color: var(--accent-color);
+      text-decoration: none;
+      margin: 0 0.75rem;
+      transition: color 0.2s ease;
+    }
+
+    footer a:hover,
+    footer a:focus {
+      color: var(--foreground-color);
+    }
   </style>
 </head>
 
@@ -147,6 +171,12 @@
       </blockquote>
     </figure>
   </main>
+  <footer>
+    Stay in touch:
+    <a href="https://fgarend.github.io" target="_blank" rel="noopener noreferrer">Website</a>
+    <a href="https://github.com/fgarend" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <a href="https://linkedin.com/in/felipegabrielarend" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  </footer>
   <template id="citation-template">
     <figcaption id="advice-citation" class="advice-citation">
       — Advice Slip API <a target="_blank" rel="noopener noreferrer"></a>
