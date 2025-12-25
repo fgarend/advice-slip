@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>AdviceSlip</title>
+  <meta name="description" content="Get inspired with random advice sourced live from the Advice Slip API." />
+
+  <meta property="og:title" content="AdviceSlip" />
+  <meta property="og:description" content="Get inspired with random advice sourced live from the Advice Slip API." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://fgarend.github.io/advice-slip/" />
+
+  <link rel="canonical" href="https://fgarend.github.io/advice-slip/" />
+  <meta name="theme-color" content="#f4ede7" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://api.adviceslip.com" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&family=Lora:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+
+<body>
+  <main>
+    <h1 class="title">Advice<span class="accent">Slip</span></h1>
+    <p class="subtitle">Get inspired with random advice</p>
+    <figure class="advice-card" id="advice-container">
+      <blockquote id="advice" class="advice" cite="https://api.adviceslip.com/" aria-live="polite">
+        Loading advice...
+      </blockquote>
+      <figcaption id="advice-citation" class="advice-citation hidden">
+        — Advice Slip API <a target="_blank" rel="noopener noreferrer">#000<span class="visually-hidden"> (opens in new tab)</span></a>
+      </figcaption>
+    </figure>
+    <button class="cta-button" id="new-advice-btn">Get New Advice</button>
+  </main>
+  <footer>
+    Stay in touch:
+    <a href="https://fgarend.github.io" target="_blank" rel="noopener noreferrer">Website<span class="visually-hidden"> (opens in new tab)</span></a>
+    <a href="https://github.com/fgarend" target="_blank" rel="noopener noreferrer">GitHub<span class="visually-hidden"> (opens in new tab)</span></a>
+    <a href="https://linkedin.com/in/felipegabrielarend" target="_blank" rel="noopener noreferrer">LinkedIn<span class="visually-hidden"> (opens in new tab)</span></a>
+  </footer>
+  <script src="scripts/main.js" type="module"></script>
+</body>
+
+</html>
