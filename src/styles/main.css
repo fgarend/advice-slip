@@ -51,7 +51,6 @@ main {
 }
 
 .title .accent {
-  font-family: var(--font-secondary);
   font-weight: 700;
   color: var(--foreground-color);
 }
