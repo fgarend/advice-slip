@@ -20,6 +20,11 @@
   box-sizing: border-box;
 }
 
+::selection {
+  background-color: var(--accent-color);
+  color: var(--surface-color);
+}
+
 a:focus,
 button:focus {
   outline: none;
