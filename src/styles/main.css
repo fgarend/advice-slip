@@ -31,7 +31,6 @@ body {
 
 main {
   min-height: 100vh;
-  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,6 +38,12 @@ main {
   padding: 4rem 1rem 7rem;
   box-sizing: border-box;
   text-align: center;
+}
+
+@supports (min-height: 100dvh) {
+  main {
+    min-height: 100dvh;
+  }
 }
 
 .title {
