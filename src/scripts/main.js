@@ -1,48 +1,55 @@
 const ADVICE_API_URL = "https://api.adviceslip.com";
-const LOADING_MESSAGE = "Loading advice...";
-const FALLBACK_MESSAGE = "Unable to load advice right now, so remember: Keep it simple.";
 
-const adviceEl = document.getElementById("advice");
-const citationEl = document.getElementById("advice-citation");
-const citationLinkEl = citationEl.querySelector("a");
-const newAdviceBtn = document.getElementById("new-advice-btn");
+class AdviceRenderer {
+  constructor() {
+    this.LOADING_MESSAGE = "Loading advice...";
+    this.FALLBACK_MESSAGE = "Unable to load advice right now, so remember: Keep it simple.";
 
-function updateBlockquote(text, citeUrl) {
-  adviceEl.setAttribute("cite", citeUrl);
-  adviceEl.textContent = text;
-}
+    this.adviceEl = document.getElementById("advice");
+    this.citationEl = document.getElementById("advice-citation");
+    this.citationLinkEl = this.citationEl.querySelector("a");
+  }
 
-function showCitation(slipId, citeUrl) {
-  citationLinkEl.href = citeUrl;
-  citationLinkEl.textContent = `#${slipId}`;
-  citationEl.style.visibility = "visible";
-}
+  updateBlockquote(text, citeUrl) {
+    this.adviceEl.setAttribute("cite", citeUrl);
+    this.adviceEl.textContent = text;
+  }
 
-function hideCitation() {
-  citationEl.style.visibility = "hidden";
-}
+  showCitation(slipId, citeUrl) {
+    this.citationLinkEl.href = citeUrl;
+    this.citationLinkEl.textContent = `#${slipId}`;
+    this.citationEl.style.visibility = "visible";
+  }
 
-function renderAdvice(slip) {
-  const citeUrl = slip.id ? `${ADVICE_API_URL}/advice/${slip.id}` : ADVICE_API_URL;
+  hideCitation() {
+    this.citationEl.style.visibility = "hidden";
+  }
 
-  updateBlockquote(slip.advice, citeUrl);
+  showAdvice(slip) {
+    const citeUrl = slip.id ? `${ADVICE_API_URL}/advice/${slip.id}` : ADVICE_API_URL;
 
-  if (slip.id) {
-    showCitation(slip.id, citeUrl);
-  } else {
-    hideCitation();
+    this.updateBlockquote(slip.advice, citeUrl);
+
+    if (slip.id) {
+      this.showCitation(slip.id, citeUrl);
+    } else {
+      this.hideCitation();
+    }
+  }
+
+  showLoading() {
+    this.updateBlockquote(this.LOADING_MESSAGE, ADVICE_API_URL);
+    this.hideCitation();
+  }
+
+  showFallback() {
+    this.updateBlockquote(this.FALLBACK_MESSAGE, ADVICE_API_URL);
+    this.hideCitation();
   }
 }
 
-function renderLoading() {
-  updateBlockquote(LOADING_MESSAGE, ADVICE_API_URL);
-  hideCitation();
-}
-
-function renderFallback() {
-  updateBlockquote(FALLBACK_MESSAGE, ADVICE_API_URL);
-  hideCitation();
-}
+const renderer = new AdviceRenderer();
+const newAdviceBtn = document.getElementById("new-advice-btn");
 
 async function fetchAdvice() {
   const response = await fetch(`${ADVICE_API_URL}/advice`, { cache: "no-store" });
@@ -54,13 +61,13 @@ async function fetchAdvice() {
 }
 
 async function loadAdvice() {
-  renderLoading();
+  renderer.showLoading();
 
   try {
     const slip = await fetchAdvice();
-    renderAdvice(slip);
+    renderer.showAdvice(slip);
   } catch (err) {
-    renderFallback();
+    renderer.showFallback();
   }
 }
 
