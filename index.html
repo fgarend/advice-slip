@@ -158,6 +158,38 @@
     footer a:focus {
       color: var(--foreground-color);
     }
+
+    .cta-button {
+      margin-top: 2rem;
+      padding: 0.625rem 2rem;
+      font-family: var(--font-primary);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--surface-color);
+      background-color: var(--accent-color);
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .cta-button:hover,
+    .cta-button:focus {
+      filter: brightness(1.1);
+      box-shadow: 3px 4px 6px rgba(0, 0, 0, 0.35);
+    }
+
+    .cta-button:active {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      filter: brightness(0.95);
+    }
+
+    .cta-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      filter: none;
+    }
   </style>
 </head>
 
@@ -169,7 +201,11 @@
       <blockquote id="advice" cite="https://api.adviceslip.com/">
         Loading advice...
       </blockquote>
+      <figcaption id="advice-citation" class="advice-citation" style="visibility: hidden;">
+        — Advice Slip API <a target="_blank" rel="noopener noreferrer">#000</a>
+      </figcaption>
     </figure>
+    <button class="cta-button" id="new-advice-btn">Get New Advice</button>
   </main>
   <footer>
     Stay in touch:
@@ -193,25 +229,16 @@
     }
 
     function showCitation(slipId, citeUrl) {
-      const container = document.getElementById("advice-container");
-      let citationEl = document.getElementById("advice-citation");
-
-      if (!citationEl) {
-        const template = document.getElementById("citation-template");
-        citationEl = template.content.cloneNode(true).firstElementChild;
-        container.appendChild(citationEl);
-      }
-
+      const citationEl = document.getElementById("advice-citation");
       const link = citationEl.querySelector("a");
       link.href = citeUrl;
       link.textContent = `#${slipId}`;
+      citationEl.style.visibility = "visible";
     }
 
     function hideCitation() {
       const citationEl = document.getElementById("advice-citation");
-      if (citationEl) {
-        citationEl.remove();
-      }
+      citationEl.style.visibility = "hidden";
     }
 
     function renderAdvice(slip, apiUrl) {
@@ -240,16 +267,30 @@
       return data.slip;
     }
 
-    async function loadAdvice(apiUrl) {
+    async function loadAdvice(apiUrl, button = null) {
+      if (button) {
+        button.disabled = true;
+      }
+
       try {
         const slip = await fetchAdvice(apiUrl);
         renderAdvice(slip, apiUrl);
       } catch (err) {
         renderFallback(apiUrl);
+      } finally {
+        if (button) {
+          button.disabled = false;
+        }
       }
     }
 
-    loadAdvice(ADVICE_API_URL);
+    const newAdviceBtn = document.getElementById("new-advice-btn");
+
+    loadAdvice(ADVICE_API_URL, newAdviceBtn);
+
+    newAdviceBtn.addEventListener("click", () => {
+      loadAdvice(ADVICE_API_URL, newAdviceBtn);
+    });
   </script>
 </body>
 
