@@ -48,35 +48,44 @@ class AdviceRenderer {
   }
 }
 
-const renderer = new AdviceRenderer();
-const newAdviceBtn = document.getElementById("new-advice-btn");
-
-async function fetchAdvice() {
-  const response = await fetch(`${ADVICE_API_URL}/advice`, { cache: "no-store" });
-  if (!response.ok) {
-    throw new Error(`Request failed: ${response.status}`);
+class AdviceApp {
+  constructor(apiUrl) {
+    this.apiUrl = apiUrl;
+    this.renderer = new AdviceRenderer();
+    this.button = document.getElementById("new-advice-btn");
   }
-  const data = await response.json();
-  return data.slip;
+
+  async fetchAdvice() {
+    const response = await fetch(`${this.apiUrl}/advice`, { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error(`Request failed: ${response.status}`);
+    }
+    const data = await response.json();
+    return data.slip;
+  }
+
+  async load() {
+    this.renderer.showLoading();
+
+    try {
+      const slip = await this.fetchAdvice();
+      this.renderer.showAdvice(slip);
+    } catch (err) {
+      this.renderer.showFallback();
+    }
+  }
+
+  async handleButtonClick() {
+    this.button.disabled = true;
+    await this.load();
+    this.button.disabled = false;
+  }
+
+  init() {
+    this.load();
+    this.button.addEventListener("click", () => this.handleButtonClick());
+  }
 }
 
-async function loadAdvice() {
-  renderer.showLoading();
-
-  try {
-    const slip = await fetchAdvice();
-    renderer.showAdvice(slip);
-  } catch (err) {
-    renderer.showFallback();
-  }
-}
-
-const handleLoadAdvice = async () => {
-  newAdviceBtn.disabled = true;
-  await loadAdvice();
-  newAdviceBtn.disabled = false;
-};
-
-handleLoadAdvice();
-
-newAdviceBtn.addEventListener("click", handleLoadAdvice);
+const app = new AdviceApp(ADVICE_API_URL);
+app.init();
