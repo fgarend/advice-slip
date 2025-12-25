@@ -16,6 +16,7 @@ const root = process.cwd();
 const outDir = path.join(root, "build");
 const sources = [
     { type: "file", path: path.join(root, "src", "index.html") },
+    { type: "file", path: path.join(root, "src", "styles", "main.css") },
 ];
 
 function ensureEmptyDir(dir) {

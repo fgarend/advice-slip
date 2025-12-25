@@ -1,0 +1,175 @@
+:root {
+  --font-primary: 'Nunito', system-ui, sans-serif;
+  --font-secondary: 'Lora', serif;
+  --accent-color: hsl(183 31% 34%);
+  --foreground-color: hsl(210 20% 18%);
+  --foreground-muted: hsl(210 10% 38%);
+  --background-color: hsl(25 25% 96%);
+  --surface-color: hsl(0 0% 100%);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-primary);
+  background-color: var(--background-color);
+  color: var(--foreground-color);
+}
+
+main {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem 7rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.title {
+  margin-bottom: 0.5rem;
+  font-family: var(--font-secondary);
+  font-weight: 500;
+  font-size: clamp(3rem, 6.5vw, 4rem);
+  text-transform: uppercase;
+  color: var(--accent-color);
+}
+
+.title .accent {
+  font-family: var(--font-secondary);
+  font-weight: 900;
+  color: var(--foreground-color);
+}
+
+.subtitle {
+  margin-top: 0;
+  margin-bottom: 3rem;
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  font-weight: 700;
+  font-style: italic;
+  color: var(--foreground-muted);
+}
+
+.advice-card {
+  margin: 2rem auto 0;
+  width: min(90vw, 32rem);
+}
+
+#advice {
+  margin: 0;
+  min-height: 10rem;
+  padding: 2rem 2.5rem;
+  box-sizing: border-box;
+  position: relative;
+  font-family: var(--font-secondary);
+  font-size: clamp(1.35rem, 3.5vw, 1.9rem);
+  line-height: 1.6;
+  font-style: italic;
+  font-weight: 600;
+  background-color: var(--surface-color);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#advice::before,
+#advice::after {
+  font-size: 6rem;
+  position: absolute;
+}
+
+#advice::before {
+  content: open-quote;
+  top: -3.25rem;
+  left: -1rem;
+}
+
+#advice::after {
+  content: close-quote;
+  bottom: -6rem;
+  right: -1rem;
+}
+
+.advice-citation {
+  margin-top: 1.5rem;
+  padding-right: 1.5rem;
+  font-family: var(--font-primary);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--foreground-muted);
+  text-align: right;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.advice-citation a {
+  color: var(--accent-color);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.advice-citation a:hover,
+.advice-citation a:focus {
+  border-bottom-color: var(--accent-color);
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--foreground-muted);
+  background-color: var(--background-color);
+}
+
+footer a {
+  color: var(--accent-color);
+  text-decoration: none;
+  margin: 0 0.75rem;
+  transition: color 0.2s ease;
+}
+
+footer a:hover,
+footer a:focus {
+  color: var(--foreground-color);
+}
+
+.cta-button {
+  margin-top: 2rem;
+  padding: 0.625rem 2rem;
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--surface-color);
+  background-color: var(--accent-color);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:hover,
+.cta-button:focus {
+  filter: brightness(1.1);
+  box-shadow: 3px 4px 6px rgba(0, 0, 0, 0.35);
+}
+
+.cta-button:active {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  filter: brightness(0.95);
+}
+
+.cta-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: none;
+}
