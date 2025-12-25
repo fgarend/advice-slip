@@ -158,6 +158,38 @@
     footer a:focus {
       color: var(--foreground-color);
     }
+
+    .cta-button {
+      margin-top: 2rem;
+      padding: 0.625rem 2rem;
+      font-family: var(--font-primary);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--surface-color);
+      background-color: var(--accent-color);
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .cta-button:hover,
+    .cta-button:focus {
+      filter: brightness(1.1);
+      box-shadow: 3px 4px 6px rgba(0, 0, 0, 0.35);
+    }
+
+    .cta-button:active {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      filter: brightness(0.95);
+    }
+
+    .cta-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      filter: none;
+    }
   </style>
 </head>
 
@@ -169,7 +201,11 @@
       <blockquote id="advice" cite="https://api.adviceslip.com/">
         Loading advice...
       </blockquote>
+      <figcaption id="advice-citation" class="advice-citation" style="visibility: hidden;">
+        — Advice Slip API <a target="_blank" rel="noopener noreferrer">#000</a>
+      </figcaption>
     </figure>
+    <button class="cta-button" id="new-advice-btn">Get New Advice</button>
   </main>
   <footer>
     Stay in touch:
@@ -177,14 +213,10 @@
     <a href="https://github.com/fgarend" target="_blank" rel="noopener noreferrer">GitHub</a>
     <a href="https://linkedin.com/in/felipegabrielarend" target="_blank" rel="noopener noreferrer">LinkedIn</a>
   </footer>
-  <template id="citation-template">
-    <figcaption id="advice-citation" class="advice-citation">
-      — Advice Slip API <a target="_blank" rel="noopener noreferrer"></a>
-    </figcaption>
-  </template>
   <script>
     const ADVICE_API_URL = "https://api.adviceslip.com";
-    const FALLBACK_ADVICE = "Unable to load advice right now, so remember: Keep it simple.";
+    const LOADING_MESSAGE = "Loading advice...";
+    const FALLBACK_MESSAGE = "Unable to load advice right now, so remember: Keep it simple.";
 
     function updateBlockquote(text, citeUrl) {
       const blockquoteEl = document.getElementById("advice");
@@ -193,29 +225,20 @@
     }
 
     function showCitation(slipId, citeUrl) {
-      const container = document.getElementById("advice-container");
-      let citationEl = document.getElementById("advice-citation");
-
-      if (!citationEl) {
-        const template = document.getElementById("citation-template");
-        citationEl = template.content.cloneNode(true).firstElementChild;
-        container.appendChild(citationEl);
-      }
-
+      const citationEl = document.getElementById("advice-citation");
       const link = citationEl.querySelector("a");
       link.href = citeUrl;
       link.textContent = `#${slipId}`;
+      citationEl.style.visibility = "visible";
     }
 
     function hideCitation() {
       const citationEl = document.getElementById("advice-citation");
-      if (citationEl) {
-        citationEl.remove();
-      }
+      citationEl.style.visibility = "hidden";
     }
 
-    function renderAdvice(slip, apiUrl) {
-      const citeUrl = slip.id ? `${apiUrl}/advice/${slip.id}` : apiUrl;
+    function renderAdvice(slip) {
+      const citeUrl = slip.id ? `${ADVICE_API_URL}/advice/${slip.id}` : ADVICE_API_URL;
 
       updateBlockquote(slip.advice, citeUrl);
 
@@ -226,13 +249,18 @@
       }
     }
 
-    function renderFallback(apiUrl) {
-      updateBlockquote(FALLBACK_ADVICE, apiUrl);
+    function renderLoading() {
+      updateBlockquote(LOADING_MESSAGE, ADVICE_API_URL);
       hideCitation();
     }
 
-    async function fetchAdvice(apiUrl) {
-      const response = await fetch(`${apiUrl}/advice`, { cache: "no-store" });
+    function renderFallback() {
+      updateBlockquote(FALLBACK_MESSAGE, ADVICE_API_URL);
+      hideCitation();
+    }
+
+    async function fetchAdvice() {
+      const response = await fetch(`${ADVICE_API_URL}/advice`, { cache: "no-store" });
       if (!response.ok) {
         throw new Error(`Request failed: ${response.status}`);
       }
@@ -240,16 +268,28 @@
       return data.slip;
     }
 
-    async function loadAdvice(apiUrl) {
+    async function loadAdvice() {
+      renderLoading();
+
       try {
-        const slip = await fetchAdvice(apiUrl);
-        renderAdvice(slip, apiUrl);
+        const slip = await fetchAdvice();
+        renderAdvice(slip);
       } catch (err) {
-        renderFallback(apiUrl);
+        renderFallback();
       }
     }
 
-    loadAdvice(ADVICE_API_URL);
+    const newAdviceBtn = document.getElementById("new-advice-btn");
+
+    const handleLoadAdvice = async () => {
+      newAdviceBtn.disabled = true;
+      await loadAdvice();
+      newAdviceBtn.disabled = false;
+    };
+
+    handleLoadAdvice();
+
+    newAdviceBtn.addEventListener("click", handleLoadAdvice);
   </script>
 </body>
 
