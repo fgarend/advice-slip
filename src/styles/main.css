@@ -125,6 +125,10 @@ main {
   box-sizing: border-box;
 }
 
+.advice-citation.hidden {
+  visibility: hidden;
+}
+
 .advice-citation a {
   color: var(--accent-color);
   text-decoration: none;

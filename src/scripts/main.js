@@ -37,11 +37,11 @@ class AdviceRenderer {
   showCitation(slipId, citeUrl) {
     this.citationLinkEl.href = citeUrl;
     this.citationLinkEl.textContent = `#${slipId}`;
-    this.citationEl.style.visibility = "visible";
+    this.citationEl.classList.remove("hidden");
   }
 
   hideCitation() {
-    this.citationEl.style.visibility = "hidden";
+    this.citationEl.classList.add("hidden");
   }
 
   showAdvice(slip, citeUrl) {
