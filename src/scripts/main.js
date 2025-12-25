@@ -1,5 +1,28 @@
 const ADVICE_API_URL = "https://api.adviceslip.com";
 
+class AdviceService {
+  constructor(apiUrl) {
+    this.apiUrl = apiUrl;
+  }
+
+  async fetchAdvice() {
+    const response = await fetch(`${this.apiUrl}/advice`, { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error(`Request failed: ${response.status}`);
+    }
+    const data = await response.json();
+    return data.slip;
+  }
+
+  getBaseUrl() {
+    return this.apiUrl;
+  }
+
+  getAdviceUrl(slipId) {
+    return slipId ? `${this.apiUrl}/advice/${slipId}` : this.apiUrl;
+  }
+}
+
 class AdviceRenderer {
   constructor() {
     this.LOADING_MESSAGE = "Loading advice...";
@@ -25,9 +48,7 @@ class AdviceRenderer {
     this.citationEl.style.visibility = "hidden";
   }
 
-  showAdvice(slip) {
-    const citeUrl = slip.id ? `${ADVICE_API_URL}/advice/${slip.id}` : ADVICE_API_URL;
-
+  showAdvice(slip, citeUrl) {
     this.updateBlockquote(slip.advice, citeUrl);
 
     if (slip.id) {
@@ -37,41 +58,34 @@ class AdviceRenderer {
     }
   }
 
-  showLoading() {
-    this.updateBlockquote(this.LOADING_MESSAGE, ADVICE_API_URL);
+  showLoading(baseUrl) {
+    this.updateBlockquote(this.LOADING_MESSAGE, baseUrl);
     this.hideCitation();
   }
 
-  showFallback() {
-    this.updateBlockquote(this.FALLBACK_MESSAGE, ADVICE_API_URL);
+  showFallback(baseUrl) {
+    this.updateBlockquote(this.FALLBACK_MESSAGE, baseUrl);
     this.hideCitation();
   }
 }
 
 class AdviceApp {
   constructor(apiUrl) {
-    this.apiUrl = apiUrl;
+    this.service = new AdviceService(apiUrl);
     this.renderer = new AdviceRenderer();
     this.button = document.getElementById("new-advice-btn");
   }
 
-  async fetchAdvice() {
-    const response = await fetch(`${this.apiUrl}/advice`, { cache: "no-store" });
-    if (!response.ok) {
-      throw new Error(`Request failed: ${response.status}`);
-    }
-    const data = await response.json();
-    return data.slip;
-  }
-
   async load() {
-    this.renderer.showLoading();
+    const baseUrl = this.service.getBaseUrl();
+    this.renderer.showLoading(baseUrl);
 
     try {
-      const slip = await this.fetchAdvice();
-      this.renderer.showAdvice(slip);
+      const slip = await this.service.fetchAdvice();
+      const citeUrl = this.service.getAdviceUrl(slip.id);
+      this.renderer.showAdvice(slip, citeUrl);
     } catch (err) {
-      this.renderer.showFallback();
+      this.renderer.showFallback(baseUrl);
     }
   }
 
