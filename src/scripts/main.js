@@ -64,11 +64,11 @@ class AdviceRenderer {
     this.hideCitation();
   }
 
-  disableButton() {
+  disableCtaButton() {
     this.button.disabled = true;
   }
 
-  enableButton() {
+  enableCtaButton() {
     this.button.disabled = false;
   }
 }
@@ -80,7 +80,7 @@ class AdviceApp {
   }
 
   async getNewAdvice() {
-    this.renderer.disableButton();
+    this.renderer.disableCtaButton();
     const baseUrl = this.service.getBaseUrl();
     this.renderer.showLoading(baseUrl);
 
@@ -92,7 +92,7 @@ class AdviceApp {
       this.renderer.showFallback(baseUrl);
     }
 
-    this.renderer.enableButton();
+    this.renderer.enableCtaButton();
   }
 
   init() {
