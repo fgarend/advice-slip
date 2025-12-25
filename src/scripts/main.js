@@ -79,7 +79,7 @@ class AdviceApp {
     this.renderer = new AdviceRenderer();
   }
 
-  async load() {
+  async getNewAdvice() {
     this.renderer.disableButton();
     const baseUrl = this.service.getBaseUrl();
     this.renderer.showLoading(baseUrl);
@@ -96,8 +96,8 @@ class AdviceApp {
   }
 
   init() {
-    this.load();
-    this.renderer.button.addEventListener("click", () => this.load());
+    this.getNewAdvice();
+    this.renderer.button.addEventListener("click", () => this.getNewAdvice());
   }
 }
 
