@@ -43,7 +43,7 @@ main {
 .title {
   margin-bottom: 0.5rem;
   font-family: var(--font-secondary);
-  font-weight: 500;
+  font-weight: 600;
   font-size: clamp(3rem, 6.5vw, 4rem);
   text-transform: uppercase;
   color: var(--accent-color);
@@ -51,7 +51,7 @@ main {
 
 .title .accent {
   font-family: var(--font-secondary);
-  font-weight: 900;
+  font-weight: 700;
   color: var(--foreground-color);
 }
 
@@ -59,7 +59,7 @@ main {
   margin-top: 0;
   margin-bottom: 3rem;
   font-size: clamp(0.95rem, 1.6vw, 1.15rem);
-  font-weight: 700;
+  font-weight: 600;
   font-style: italic;
   color: var(--foreground-muted);
 }
@@ -160,7 +160,7 @@ footer a:focus {
   padding: 0.625rem 2rem;
   font-family: var(--font-primary);
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--surface-color);
   background-color: var(--accent-color);
   border: none;
