@@ -236,8 +236,8 @@
       citationEl.style.visibility = "hidden";
     }
 
-    function renderAdvice(slip, apiUrl) {
-      const citeUrl = slip.id ? `${apiUrl}/advice/${slip.id}` : apiUrl;
+    function renderAdvice(slip) {
+      const citeUrl = slip.id ? `${ADVICE_API_URL}/advice/${slip.id}` : ADVICE_API_URL;
 
       updateBlockquote(slip.advice, citeUrl);
 
@@ -248,13 +248,13 @@
       }
     }
 
-    function renderFallback(apiUrl) {
-      updateBlockquote(FALLBACK_ADVICE, apiUrl);
+    function renderFallback() {
+      updateBlockquote(FALLBACK_ADVICE, ADVICE_API_URL);
       hideCitation();
     }
 
-    async function fetchAdvice(apiUrl) {
-      const response = await fetch(`${apiUrl}/advice`, { cache: "no-store" });
+    async function fetchAdvice() {
+      const response = await fetch(`${ADVICE_API_URL}/advice`, { cache: "no-store" });
       if (!response.ok) {
         throw new Error(`Request failed: ${response.status}`);
       }
@@ -262,7 +262,7 @@
       return data.slip;
     }
 
-    async function loadAdvice(apiUrl, button = null) {
+    async function loadAdvice(button = null) {
       if (button) {
         button.disabled = true;
       }
@@ -271,10 +271,10 @@
       hideCitation();
 
       try {
-        const slip = await fetchAdvice(apiUrl);
-        renderAdvice(slip, apiUrl);
+        const slip = await fetchAdvice();
+        renderAdvice(slip);
       } catch (err) {
-        renderFallback(apiUrl);
+        renderFallback();
       } finally {
         if (button) {
           button.disabled = false;
@@ -284,10 +284,10 @@
 
     const newAdviceBtn = document.getElementById("new-advice-btn");
 
-    loadAdvice(ADVICE_API_URL, newAdviceBtn);
+    loadAdvice(newAdviceBtn);
 
     newAdviceBtn.addEventListener("click", () => {
-      loadAdvice(ADVICE_API_URL, newAdviceBtn);
+      loadAdvice(newAdviceBtn);
     });
   </script>
 </body>
