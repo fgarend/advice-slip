@@ -147,6 +147,11 @@
       </blockquote>
     </figure>
   </main>
+  <template id="citation-template">
+    <figcaption id="advice-citation" class="advice-citation">
+      — Advice Slip API <a target="_blank" rel="noopener noreferrer"></a>
+    </figcaption>
+  </template>
   <script>
     const ADVICE_API_URL = "https://api.adviceslip.com";
 
@@ -163,20 +168,14 @@
 
       if (slip.id) {
         if (!captionEl) {
-          captionEl = document.createElement('figcaption');
-          captionEl.id = 'advice-citation';
-          captionEl.className = 'advice-citation';
+          const template = document.getElementById('citation-template');
+          captionEl = template.content.cloneNode(true).firstElementChild;
           container.appendChild(captionEl);
         }
 
-        const link = document.createElement('a');
+        const link = captionEl.querySelector('a');
         link.href = citeUrl;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
         link.textContent = `#${slip.id}`;
-
-        captionEl.innerHTML = '— Advice Slip API ';
-        captionEl.appendChild(link);
       } else {
         if (captionEl) {
           captionEl.remove();
