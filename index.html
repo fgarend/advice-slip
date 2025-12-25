@@ -155,31 +155,44 @@
   <script>
     const ADVICE_API_URL = "https://api.adviceslip.com";
 
-    function renderAdvice(slip, apiUrl) {
+    function updateBlockquote(text, citeUrl) {
       const blockquoteEl = document.getElementById("advice");
+      blockquoteEl.setAttribute("cite", citeUrl);
+      blockquoteEl.textContent = text;
+    }
+
+    function showCitation(slipId, citeUrl) {
+      const container = document.getElementById("advice-container");
+      let citationEl = document.getElementById("advice-citation");
+
+      if (!citationEl) {
+        const template = document.getElementById("citation-template");
+        citationEl = template.content.cloneNode(true).firstElementChild;
+        container.appendChild(citationEl);
+      }
+
+      const link = citationEl.querySelector("a");
+      link.href = citeUrl;
+      link.textContent = `#${slipId}`;
+    }
+
+    function hideCitation() {
+      const citationEl = document.getElementById("advice-citation");
+      if (citationEl) {
+        citationEl.remove();
+      }
+    }
+
+    function renderAdvice(slip, apiUrl) {
       const text = slip.advice || slip;
       const citeUrl = slip.id ? `${apiUrl}/advice/${slip.id}` : apiUrl;
 
-      blockquoteEl.setAttribute("cite", citeUrl);
-      blockquoteEl.textContent = text;
-
-      const container = document.getElementById("advice-container");
-      let captionEl = document.getElementById("advice-citation");
+      updateBlockquote(text, citeUrl);
 
       if (slip.id) {
-        if (!captionEl) {
-          const template = document.getElementById('citation-template');
-          captionEl = template.content.cloneNode(true).firstElementChild;
-          container.appendChild(captionEl);
-        }
-
-        const link = captionEl.querySelector('a');
-        link.href = citeUrl;
-        link.textContent = `#${slip.id}`;
+        showCitation(slip.id, citeUrl);
       } else {
-        if (captionEl) {
-          captionEl.remove();
-        }
+        hideCitation();
       }
     }
 
