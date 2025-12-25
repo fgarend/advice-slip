@@ -215,7 +215,8 @@
   </footer>
   <script>
     const ADVICE_API_URL = "https://api.adviceslip.com";
-    const FALLBACK_ADVICE = "Unable to load advice right now, so remember: Keep it simple.";
+    const LOADING_MESSAGE = "Loading advice...";
+    const FALLBACK_MESSAGE = "Unable to load advice right now, so remember: Keep it simple.";
 
     function updateBlockquote(text, citeUrl) {
       const blockquoteEl = document.getElementById("advice");
@@ -248,8 +249,13 @@
       }
     }
 
+    function renderLoading() {
+      updateBlockquote(LOADING_MESSAGE, ADVICE_API_URL);
+      hideCitation();
+    }
+
     function renderFallback() {
-      updateBlockquote(FALLBACK_ADVICE, ADVICE_API_URL);
+      updateBlockquote(FALLBACK_MESSAGE, ADVICE_API_URL);
       hideCitation();
     }
 
@@ -267,8 +273,7 @@
         button.disabled = true;
       }
 
-      updateBlockquote("Loading advice...", ADVICE_API_URL);
-      hideCitation();
+      renderLoading();
 
       try {
         const slip = await fetchAdvice();
