@@ -26,6 +26,7 @@ class AdviceRenderer {
     this.adviceEl = document.getElementById("advice");
     this.citationEl = document.getElementById("advice-citation");
     this.citationLinkEl = this.citationEl.querySelector("a");
+    this.button = document.getElementById("new-advice-btn");
   }
 
   updateBlockquote(text, citeUrl) {
@@ -62,16 +63,24 @@ class AdviceRenderer {
     this.updateBlockquote("Unable to load advice right now, so remember: Keep it simple.", baseUrl);
     this.hideCitation();
   }
+
+  disableButton() {
+    this.button.disabled = true;
+  }
+
+  enableButton() {
+    this.button.disabled = false;
+  }
 }
 
 class AdviceApp {
   constructor() {
     this.service = new AdviceService();
     this.renderer = new AdviceRenderer();
-    this.button = document.getElementById("new-advice-btn");
   }
 
   async load() {
+    this.renderer.disableButton();
     const baseUrl = this.service.getBaseUrl();
     this.renderer.showLoading(baseUrl);
 
@@ -82,17 +91,13 @@ class AdviceApp {
     } catch (err) {
       this.renderer.showFallback(baseUrl);
     }
-  }
 
-  async handleButtonClick() {
-    this.button.disabled = true;
-    await this.load();
-    this.button.disabled = false;
+    this.renderer.enableButton();
   }
 
   init() {
     this.load();
-    this.button.addEventListener("click", () => this.handleButtonClick());
+    this.renderer.button.addEventListener("click", () => this.load());
   }
 }
 
