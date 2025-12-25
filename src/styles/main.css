@@ -36,19 +36,6 @@ button:focus-visible {
   outline-offset: 2px;
 }
 
-.visually-hidden {
-  position: absolute;
-  margin: -1px;
-  padding: 0;
-  width: 1px;
-  height: 1px;
-  border-width: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
 body {
   margin: 0;
   font-family: var(--font-primary);
@@ -219,6 +206,19 @@ footer a:focus-visible {
 .cta-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.visually-hidden {
+  position: absolute;
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  border-width: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 @media (prefers-reduced-motion: reduce) {
