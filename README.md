@@ -2,7 +2,7 @@
 
 ## Overview
 
-Advice Slip is a tiny static page that fetches a random piece of advice from the [Advice Slip API](https://api.adviceslip.com). It keeps the setup minimal—plain HTML with a small inline script.
+Advice Slip is a tiny static page that fetches a random piece of advice from the [Advice Slip API](https://api.adviceslip.com). It uses a modular structure with separate HTML, CSS, and JavaScript files for better performance and maintainability.
 
 ## Usage
 
