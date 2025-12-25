@@ -154,6 +154,7 @@
   </template>
   <script>
     const ADVICE_API_URL = "https://api.adviceslip.com";
+    const FALLBACK_ADVICE = "Unable to load advice right now, so remember: Keep it simple.";
 
     function updateBlockquote(text, citeUrl) {
       const blockquoteEl = document.getElementById("advice");
@@ -184,16 +185,20 @@
     }
 
     function renderAdvice(slip, apiUrl) {
-      const text = slip.advice || slip;
       const citeUrl = slip.id ? `${apiUrl}/advice/${slip.id}` : apiUrl;
 
-      updateBlockquote(text, citeUrl);
+      updateBlockquote(slip.advice, citeUrl);
 
       if (slip.id) {
         showCitation(slip.id, citeUrl);
       } else {
         hideCitation();
       }
+    }
+
+    function renderFallback(apiUrl) {
+      updateBlockquote(FALLBACK_ADVICE, apiUrl);
+      hideCitation();
     }
 
     async function fetchAdvice(apiUrl) {
@@ -210,7 +215,7 @@
         const slip = await fetchAdvice(apiUrl);
         renderAdvice(slip, apiUrl);
       } catch (err) {
-        renderAdvice("Unable to load advice right now, so remember: Keep it simple.", apiUrl);
+        renderFallback(apiUrl);
       }
     }
 
