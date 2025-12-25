@@ -69,7 +69,7 @@ main {
   width: min(90vw, 32rem);
 }
 
-#advice {
+.advice {
   margin: 0;
   min-height: 10rem;
   padding: 2rem 2.5rem;
@@ -88,19 +88,19 @@ main {
   text-align: center;
 }
 
-#advice::before,
-#advice::after {
+.advice::before,
+.advice::after {
   font-size: 6rem;
   position: absolute;
 }
 
-#advice::before {
+.advice::before {
   content: open-quote;
   top: -3.25rem;
   left: -1rem;
 }
 
-#advice::after {
+.advice::after {
   content: close-quote;
   bottom: -6rem;
   right: -1rem;
