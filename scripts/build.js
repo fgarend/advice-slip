@@ -15,7 +15,7 @@ const path = require("node:path");
 const root = process.cwd();
 const outDir = path.join(root, "build");
 const sources = [
-    { type: "file", path: path.join(root, "index.html") },
+    { type: "file", path: path.join(root, "src", "index.html") },
 ];
 
 function ensureEmptyDir(dir) {
@@ -30,7 +30,8 @@ function validateSource(item) {
 }
 
 function copyItem(item) {
-    const relative = path.relative(root, item.path);
+    const srcDir = path.join(root, "src");
+    const relative = path.relative(srcDir, item.path);
     const destination = path.join(outDir, relative);
 
     if (item.type === "file") {
