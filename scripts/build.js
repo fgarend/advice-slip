@@ -17,6 +17,7 @@ const outDir = path.join(root, "build");
 const sources = [
     { type: "file", path: path.join(root, "src", "index.html") },
     { type: "file", path: path.join(root, "src", "styles", "main.css") },
+    { type: "file", path: path.join(root, "src", "scripts", "main.js") },
 ];
 
 function ensureEmptyDir(dir) {
