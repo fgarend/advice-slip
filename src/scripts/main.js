@@ -1,8 +1,6 @@
-const ADVICE_API_URL = "https://api.adviceslip.com";
-
 class AdviceService {
-  constructor(apiUrl) {
-    this.apiUrl = apiUrl;
+  constructor() {
+    this.apiUrl = "https://api.adviceslip.com";
   }
 
   async fetchAdvice() {
@@ -25,9 +23,6 @@ class AdviceService {
 
 class AdviceRenderer {
   constructor() {
-    this.LOADING_MESSAGE = "Loading advice...";
-    this.FALLBACK_MESSAGE = "Unable to load advice right now, so remember: Keep it simple.";
-
     this.adviceEl = document.getElementById("advice");
     this.citationEl = document.getElementById("advice-citation");
     this.citationLinkEl = this.citationEl.querySelector("a");
@@ -59,19 +54,19 @@ class AdviceRenderer {
   }
 
   showLoading(baseUrl) {
-    this.updateBlockquote(this.LOADING_MESSAGE, baseUrl);
+    this.updateBlockquote("Loading advice...", baseUrl);
     this.hideCitation();
   }
 
   showFallback(baseUrl) {
-    this.updateBlockquote(this.FALLBACK_MESSAGE, baseUrl);
+    this.updateBlockquote("Unable to load advice right now, so remember: Keep it simple.", baseUrl);
     this.hideCitation();
   }
 }
 
 class AdviceApp {
-  constructor(apiUrl) {
-    this.service = new AdviceService(apiUrl);
+  constructor() {
+    this.service = new AdviceService();
     this.renderer = new AdviceRenderer();
     this.button = document.getElementById("new-advice-btn");
   }
@@ -101,5 +96,5 @@ class AdviceApp {
   }
 }
 
-const app = new AdviceApp(ADVICE_API_URL);
+const app = new AdviceApp();
 app.init();
