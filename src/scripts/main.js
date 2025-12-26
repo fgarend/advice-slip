@@ -6,11 +6,18 @@ class ThemeManager {
   }
 
   getSystemPreference() {
+    if (!window.matchMedia) {
+      return "light";
+    }
     return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   }
 
   getStoredTheme() {
-    return localStorage.getItem(this.storageKey);
+    try {
+      return localStorage.getItem(this.storageKey);
+    } catch (e) {
+      return null;
+    }
   }
 
   getCurrentTheme() {
@@ -27,7 +34,11 @@ class ThemeManager {
   }
 
   saveTheme(theme) {
-    localStorage.setItem(this.storageKey, theme);
+    try {
+      localStorage.setItem(this.storageKey, theme);
+    } catch (e) {
+      return;
+    }
   }
 
   toggleTheme() {
@@ -41,13 +52,19 @@ class ThemeManager {
     const theme = this.getCurrentTheme();
     this.applyTheme(theme);
 
+    if (!this.toggle) {
+      return;
+    }
+
     this.toggle.addEventListener("click", () => this.toggleTheme());
 
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-      if (!this.getStoredTheme()) {
-        this.applyTheme(e.matches ? "dark" : "light");
-      }
-    });
+    if (window.matchMedia) {
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+        if (!this.getStoredTheme()) {
+          this.applyTheme(e.matches ? "dark" : "light");
+        }
+      });
+    }
   }
 }
 
