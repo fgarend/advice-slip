@@ -1,8 +1,13 @@
 class ThemeManager {
   constructor() {
     this.storageKey = "theme";
+    this.validThemes = ["light", "dark"];
     this.toggle = document.getElementById("theme-toggle");
     this.metaThemeColor = document.querySelector('meta[name="theme-color"]');
+  }
+
+  isValidTheme(theme) {
+    return this.validThemes.includes(theme);
   }
 
   getSystemPreference() {
@@ -14,7 +19,8 @@ class ThemeManager {
 
   getStoredTheme() {
     try {
-      return localStorage.getItem(this.storageKey);
+      const stored = localStorage.getItem(this.storageKey);
+      return this.isValidTheme(stored) ? stored : null;
     } catch (e) {
       return null;
     }
