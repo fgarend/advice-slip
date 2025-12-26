@@ -8,6 +8,7 @@ class ThemeManager {
     };
     this.toggle = document.getElementById("theme-toggle");
     this.metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    this.prefersDarkQuery = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
   }
 
   isValidTheme(theme) {
@@ -15,10 +16,10 @@ class ThemeManager {
   }
 
   getSystemPreference() {
-    if (!window.matchMedia) {
+    if (!this.prefersDarkQuery) {
       return "light";
     }
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    return this.prefersDarkQuery.matches ? "dark" : "light";
   }
 
   getStoredTheme() {
@@ -72,8 +73,8 @@ class ThemeManager {
 
     this.toggle.addEventListener("click", () => this.toggleTheme());
 
-    if (window.matchMedia) {
-      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+    if (this.prefersDarkQuery) {
+      this.prefersDarkQuery.addEventListener("change", (e) => {
         if (!this.getStoredTheme()) {
           this.applyTheme(e.matches ? "dark" : "light");
         }
