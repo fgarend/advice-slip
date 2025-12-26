@@ -1,3 +1,56 @@
+class ThemeManager {
+  constructor() {
+    this.storageKey = "theme";
+    this.toggle = document.getElementById("theme-toggle");
+    this.metaThemeColor = document.querySelector('meta[name="theme-color"]');
+  }
+
+  getSystemPreference() {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+
+  getStoredTheme() {
+    return localStorage.getItem(this.storageKey);
+  }
+
+  getCurrentTheme() {
+    return this.getStoredTheme() || this.getSystemPreference();
+  }
+
+  applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+
+    const themeColor = theme === "dark" ? "#18202b" : "#f4ede7";
+    if (this.metaThemeColor) {
+      this.metaThemeColor.setAttribute("content", themeColor);
+    }
+  }
+
+  saveTheme(theme) {
+    localStorage.setItem(this.storageKey, theme);
+  }
+
+  toggleTheme() {
+    const currentTheme = this.getCurrentTheme();
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    this.applyTheme(newTheme);
+    this.saveTheme(newTheme);
+  }
+
+  init() {
+    const theme = this.getCurrentTheme();
+    this.applyTheme(theme);
+
+    this.toggle.addEventListener("click", () => this.toggleTheme());
+
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+      if (!this.getStoredTheme()) {
+        this.applyTheme(e.matches ? "dark" : "light");
+      }
+    });
+  }
+}
+
 class AdviceService {
   constructor() {
     this.apiUrl = "https://api.adviceslip.com";
@@ -100,6 +153,9 @@ class AdviceApp {
     this.renderer.button.addEventListener("click", () => this.getNewAdvice());
   }
 }
+
+const themeManager = new ThemeManager();
+themeManager.init();
 
 const app = new AdviceApp();
 app.init();

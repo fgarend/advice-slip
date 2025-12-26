@@ -15,6 +15,18 @@
   --transition-easing: ease;
 }
 
+[data-theme="dark"] {
+  --accent-color: hsl(182 45% 65%);
+  --accent-hover: hsl(182 45% 72%);
+  --accent-active: hsl(182 45% 80%);
+  --foreground-color: hsl(210 24% 90%);
+  --foreground-muted: hsl(210 14% 60%);
+  --background-color: hsl(215 18% 12%);
+  --surface-color: hsl(215 16% 16%);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 3px 4px 6px rgba(0, 0, 0, 0.6);
+}
+
 *,
 *::before,
 *::after {
@@ -82,6 +94,66 @@ main {
   font-weight: 600;
   font-style: italic;
   color: var(--foreground-muted);
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--surface-color);
+  color: var(--accent-color);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-duration) var(--transition-easing),
+              color var(--transition-duration) var(--transition-easing),
+              transform var(--transition-duration) var(--transition-easing),
+              box-shadow var(--transition-duration) var(--transition-easing);
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  background-color: var(--accent-color);
+  color: var(--surface-color);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.theme-toggle .icon-sun,
+.theme-toggle .icon-moon {
+  position: absolute;
+  transition: opacity 0.3s var(--transition-easing), transform 0.3s var(--transition-easing);
+}
+
+.theme-toggle .icon-sun {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.8);
+}
+
+.theme-toggle .icon-moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+[data-theme="dark"] .theme-toggle .icon-sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+[data-theme="dark"] .theme-toggle .icon-moon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.8);
 }
 
 .advice-card {
