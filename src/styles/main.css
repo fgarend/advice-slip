@@ -158,23 +158,27 @@ footer {
   bottom: 0;
   left: 0;
   right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
   padding: 1.5rem;
-  text-align: center;
-  font-size: 0.875rem;
-  color: var(--foreground-muted);
   background-color: var(--background-color);
 }
 
 footer a {
-  margin: 0 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
   color: var(--accent-color);
-  transition: color var(--transition-duration) var(--transition-easing);
+  transition: color var(--transition-duration) var(--transition-easing), transform var(--transition-duration) var(--transition-easing);
 }
 
 footer a:hover,
 footer a:focus-visible {
   color: var(--foreground-color);
+  transform: translateY(-2px);
 }
 
 .cta-button {
