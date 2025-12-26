@@ -182,6 +182,9 @@ footer a:focus-visible {
 }
 
 .cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   margin-top: 2rem;
   padding: 0.625rem 2rem;
   border: none;
@@ -194,6 +197,15 @@ footer a:focus-visible {
   box-shadow: var(--shadow-sm);
   cursor: pointer;
   transition: background-color var(--transition-duration) var(--transition-easing), box-shadow var(--transition-duration) var(--transition-easing);
+}
+
+.cta-button .icon-refresh {
+  transition: transform 0.3s var(--transition-easing);
+}
+
+.cta-button:hover .icon-refresh,
+.cta-button:focus-visible .icon-refresh {
+  transform: rotate(180deg);
 }
 
 .cta-button:hover,
