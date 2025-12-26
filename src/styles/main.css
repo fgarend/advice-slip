@@ -142,10 +142,17 @@ main {
 }
 
 .advice-citation a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
   border-bottom: 1px solid transparent;
   text-decoration: none;
   color: var(--accent-color);
   transition: border-color var(--transition-duration) var(--transition-easing);
+}
+
+.advice-citation a .icon-external {
+  flex-shrink: 0;
 }
 
 .advice-citation a:hover,
@@ -222,19 +229,6 @@ footer a:focus-visible {
 .cta-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-}
-
-.visually-hidden {
-  position: absolute;
-  margin: -1px;
-  padding: 0;
-  width: 1px;
-  height: 1px;
-  border-width: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  clip-path: inset(50%);
-  white-space: nowrap;
 }
 
 @media (prefers-reduced-motion: reduce) {
