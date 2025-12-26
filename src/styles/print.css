@@ -58,6 +58,7 @@
     line-height: 1.6;
     color: var(--foreground-color) !important;
     text-align: center;
+    text-rendering: optimizeLegibility;
     quotes: """ """ "'" "'";
     orphans: 3;
     widows: 3;
