@@ -19,6 +19,7 @@ const pkg = require(path.join(root, "package.json"));
 
 const sources = [
     { type: "file", path: path.join(root, "src", "index.html") },
+    { type: "file", path: path.join(root, "src", "favicon.svg") },
     { type: "file", path: path.join(root, "src", "styles", "main.css") },
     { type: "file", path: path.join(root, "src", "scripts", "main.js") },
 ];
