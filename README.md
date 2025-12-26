@@ -1,4 +1,4 @@
-# advice-slip
+![AdviceSlip](docs/header.svg)
 
 ## Overview
 
