@@ -37,6 +37,11 @@ class ThemeManager {
     if (this.metaThemeColor) {
       this.metaThemeColor.setAttribute("content", themeColor);
     }
+
+    if (this.toggle) {
+      const label = theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+      this.toggle.setAttribute("aria-label", label);
+    }
   }
 
   saveTheme(theme) {
