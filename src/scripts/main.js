@@ -2,6 +2,10 @@ class ThemeManager {
   constructor() {
     this.storageKey = "theme";
     this.validThemes = ["light", "dark"];
+    this.themeColors = {
+      light: "#f4ede7",
+      dark: "#18202b"
+    };
     this.toggle = document.getElementById("theme-toggle");
     this.metaThemeColor = document.querySelector('meta[name="theme-color"]');
   }
@@ -33,9 +37,8 @@ class ThemeManager {
   applyTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme);
 
-    const themeColor = theme === "dark" ? "#18202b" : "#f4ede7";
     if (this.metaThemeColor) {
-      this.metaThemeColor.setAttribute("content", themeColor);
+      this.metaThemeColor.setAttribute("content", this.themeColors[theme]);
     }
 
     if (this.toggle) {
