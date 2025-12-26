@@ -97,10 +97,7 @@
     word-wrap: break-word;
   }
 
-  .advice-citation {
-    display: none !important;
-  }
-
+  .advice-citation,
   .cta-button,
   footer {
     display: none !important;
