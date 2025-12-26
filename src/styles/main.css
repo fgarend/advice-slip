@@ -142,10 +142,17 @@ main {
 }
 
 .advice-citation a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
   border-bottom: 1px solid transparent;
   text-decoration: none;
   color: var(--accent-color);
   transition: border-color var(--transition-duration) var(--transition-easing);
+}
+
+.advice-citation a .icon-external {
+  flex-shrink: 0;
 }
 
 .advice-citation a:hover,
@@ -158,26 +165,33 @@ footer {
   bottom: 0;
   left: 0;
   right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
   padding: 1.5rem;
-  text-align: center;
-  font-size: 0.875rem;
-  color: var(--foreground-muted);
   background-color: var(--background-color);
 }
 
 footer a {
-  margin: 0 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
   color: var(--accent-color);
-  transition: color var(--transition-duration) var(--transition-easing);
+  transition: color var(--transition-duration) var(--transition-easing), transform var(--transition-duration) var(--transition-easing);
 }
 
 footer a:hover,
 footer a:focus-visible {
   color: var(--foreground-color);
+  transform: translateY(-2px);
 }
 
 .cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   margin-top: 2rem;
   padding: 0.625rem 2rem;
   border: none;
@@ -190,6 +204,15 @@ footer a:focus-visible {
   box-shadow: var(--shadow-sm);
   cursor: pointer;
   transition: background-color var(--transition-duration) var(--transition-easing), box-shadow var(--transition-duration) var(--transition-easing);
+}
+
+.cta-button .icon-refresh {
+  transition: transform 0.3s var(--transition-easing);
+}
+
+.cta-button:hover .icon-refresh,
+.cta-button:focus-visible .icon-refresh {
+  transform: rotate(180deg);
 }
 
 .cta-button:hover,
@@ -206,19 +229,6 @@ footer a:focus-visible {
 .cta-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-}
-
-.visually-hidden {
-  position: absolute;
-  margin: -1px;
-  padding: 0;
-  width: 1px;
-  height: 1px;
-  border-width: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  clip-path: inset(50%);
-  white-space: nowrap;
 }
 
 @media (prefers-reduced-motion: reduce) {
