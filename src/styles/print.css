@@ -38,6 +38,7 @@
   }
 
   .advice-card {
+    break-inside: avoid;
     page-break-inside: avoid;
     margin: auto 0;
     width: 100%;
@@ -58,7 +59,10 @@
     color: #000 !important;
     text-align: center;
     quotes: """ """ "'" "'";
+    orphans: 3;
+    widows: 3;
     -webkit-print-color-adjust: exact !important;
+    -moz-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
