@@ -53,7 +53,7 @@ class ThemeManager {
   }
 
   toggleTheme() {
-    const currentTheme = this.getCurrentTheme();
+    const currentTheme = document.documentElement.getAttribute("data-theme");
     const newTheme = currentTheme === "dark" ? "light" : "dark";
     this.applyTheme(newTheme);
     this.saveTheme(newTheme);
