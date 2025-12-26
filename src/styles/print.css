@@ -13,7 +13,6 @@
   }
 
   main {
-    min-height: 100vh;
     padding: 24pt 12pt;
     display: flex;
     flex-direction: column;
