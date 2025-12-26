@@ -94,6 +94,7 @@
     font-size: 0.85em;
     color: var(--foreground-muted) !important;
     word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .advice-citation,
