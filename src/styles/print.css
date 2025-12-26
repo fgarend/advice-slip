@@ -14,7 +14,7 @@
 
   main {
     min-height: 100vh;
-    padding: 2rem 1rem;
+    padding: 24pt 12pt;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,8 +23,8 @@
 
   .title {
     color: var(--accent-color) !important;
-    font-size: 2rem;
-    margin-bottom: 0.25rem;
+    font-size: 24pt;
+    margin-bottom: 3pt;
   }
 
   .title .accent {
@@ -33,7 +33,7 @@
 
   .subtitle {
     color: var(--foreground-muted) !important;
-    font-size: 1rem;
+    font-size: 10.5pt;
     margin-bottom: 0;
   }
 
@@ -42,7 +42,7 @@
     page-break-inside: avoid;
     margin: auto 0;
     width: 100%;
-    max-width: 40rem;
+    max-width: 480pt;
   }
 
   .advice {
@@ -50,11 +50,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem 2.5rem;
-    min-height: 10rem;
-    border-radius: 1rem;
+    padding: 24pt 30pt;
+    min-height: 120pt;
+    border-radius: 12pt;
     background-color: var(--print-surface-muted) !important;
-    font-size: 3.5rem;
+    font-size: 42pt;
     line-height: 1.6;
     color: var(--foreground-color) !important;
     text-align: center;
@@ -69,20 +69,20 @@
 
   .advice::before {
     position: absolute;
-    font-size: 6rem;
+    font-size: 72pt;
     color: var(--accent-color) !important;
     content: open-quote;
-    top: -3.25rem;
-    left: -1rem;
+    top: -39pt;
+    left: -12pt;
   }
 
   .advice::after {
     position: absolute;
-    font-size: 6rem;
+    font-size: 72pt;
     color: var(--accent-color) !important;
     content: close-quote;
-    bottom: -6rem;
-    right: -1rem;
+    bottom: -72pt;
+    right: -12pt;
   }
 
   a {
@@ -109,11 +109,11 @@
   main::after {
     content: "From fgarend.github.io/advice-slip" "\A" "Created by Felipe Arend" "\A" "Advice powered by Advice Slip API • adviceslip.com";
     position: absolute;
-    bottom: 2rem;
+    bottom: 24pt;
     left: 0;
     right: 0;
     text-align: center;
-    font-size: 0.875rem;
+    font-size: 10.5pt;
     line-height: 1.8;
     white-space: pre-line;
     color: var(--foreground-muted) !important;
