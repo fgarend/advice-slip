@@ -21,6 +21,7 @@ const sources = [
     { type: "file", path: path.join(root, "src", "index.html") },
     { type: "file", path: path.join(root, "src", "favicon.svg") },
     { type: "file", path: path.join(root, "src", "styles", "main.css") },
+    { type: "file", path: path.join(root, "src", "styles", "print.css") },
     { type: "file", path: path.join(root, "src", "scripts", "main.js") },
 ];
 
@@ -39,6 +40,7 @@ function injectVersion(htmlContent) {
     const version = pkg.version;
     return htmlContent
         .replace(/href="styles\/main\.css"/g, `href="styles/main.css?v=${version}"`)
+        .replace(/href="styles\/print\.css"/g, `href="styles/print.css?v=${version}"`)
         .replace(/src="scripts\/main\.js"/g, `src="scripts/main.js?v=${version}"`);
 }
 
