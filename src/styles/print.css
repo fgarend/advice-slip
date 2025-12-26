@@ -67,20 +67,19 @@
     print-color-adjust: exact !important;
   }
 
-  .advice::before,
-  .advice::after {
+  .advice::before {
     position: absolute;
     font-size: 6rem;
     color: var(--accent-color) !important;
-  }
-
-  .advice::before {
     content: open-quote;
     top: -3.25rem;
     left: -1rem;
   }
 
   .advice::after {
+    position: absolute;
+    font-size: 6rem;
+    color: var(--accent-color) !important;
     content: close-quote;
     bottom: -6rem;
     right: -1rem;
