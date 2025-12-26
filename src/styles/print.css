@@ -1,0 +1,109 @@
+@media print {
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  *:not(.advice) {
+    background: transparent !important;
+  }
+
+  body {
+    background: white !important;
+  }
+
+  main {
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .title {
+    color: #2d6461 !important;
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .title .accent {
+    color: #000 !important;
+  }
+
+  .subtitle {
+    color: #666 !important;
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+
+  .advice-card {
+    page-break-inside: avoid;
+    margin: auto 0;
+    width: 100%;
+    max-width: 40rem;
+  }
+
+  .advice {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 2.5rem;
+    min-height: 10rem;
+    border-radius: 1rem;
+    background-color: #f5f5f5 !important;
+    font-size: 3.5rem;
+    line-height: 1.6;
+    color: #000 !important;
+    text-align: center;
+    quotes: """ """ "'" "'";
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .advice::before,
+  .advice::after {
+    position: absolute;
+    font-size: 6rem;
+    color: #2d6461 !important;
+  }
+
+  .advice::before {
+    content: open-quote;
+    top: -3.25rem;
+    left: -1rem;
+  }
+
+  .advice::after {
+    content: close-quote;
+    bottom: -6rem;
+    right: -1rem;
+  }
+
+  .advice-citation {
+    display: none !important;
+  }
+
+  .cta-button,
+  footer {
+    display: none !important;
+  }
+
+  main::after {
+    content: "From fgarend.github.io/advice-slip" "\A" "Created by Felipe Arend" "\A" "Advice powered by Advice Slip API • adviceslip.com";
+    position: absolute;
+    bottom: 2rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 0.875rem;
+    line-height: 1.8;
+    white-space: pre-line;
+    color: #666 !important;
+  }
+
+  @page {
+    margin: 2cm;
+  }
+}
