@@ -28,8 +28,17 @@
 
   <script>
     (function() {
-      const theme = localStorage.getItem("theme") ||
-                    (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      const validThemes = ["light", "dark"];
+      let theme;
+      try {
+        const stored = localStorage.getItem("theme");
+        theme = validThemes.includes(stored) ? stored : null;
+      } catch (e) {
+        theme = null;
+      }
+      if (!theme) {
+        theme = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
       document.documentElement.setAttribute("data-theme", theme);
     })();
   </script>
