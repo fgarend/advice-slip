@@ -1,3 +1,101 @@
+class ThemeStorage {
+  constructor() {
+    this.storageKey = "theme";
+    this.validThemes = ["light", "dark"];
+  }
+
+  isValidTheme(theme) {
+    return this.validThemes.includes(theme);
+  }
+
+  get() {
+    try {
+      const stored = localStorage.getItem(this.storageKey);
+      return this.isValidTheme(stored) ? stored : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  save(theme) {
+    try {
+      localStorage.setItem(this.storageKey, theme);
+    } catch (e) {
+      return;
+    }
+  }
+}
+
+class ThemeRenderer {
+  constructor() {
+    this.themeColors = window.THEME_COLORS;
+    this.toggle = document.getElementById("theme-toggle");
+    this.metaThemeColor = document.querySelector('meta[name="theme-color"]');
+  }
+
+  apply(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+
+    if (this.metaThemeColor) {
+      this.metaThemeColor.setAttribute("content", this.themeColors[theme]);
+    }
+
+    if (this.toggle) {
+      const label = theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+      this.toggle.setAttribute("aria-label", label);
+    }
+  }
+
+  getCurrent() {
+    return document.documentElement.getAttribute("data-theme");
+  }
+}
+
+class ThemeManager {
+  constructor() {
+    this.storage = new ThemeStorage();
+    this.renderer = new ThemeRenderer();
+    this.prefersDarkQuery = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+  }
+
+  getSystemPreference() {
+    if (!this.prefersDarkQuery) {
+      return "light";
+    }
+    return this.prefersDarkQuery.matches ? "dark" : "light";
+  }
+
+  getCurrentTheme() {
+    return this.storage.get() || this.getSystemPreference();
+  }
+
+  toggleTheme() {
+    const currentTheme = this.renderer.getCurrent();
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    this.renderer.apply(newTheme);
+    this.storage.save(newTheme);
+  }
+
+  init() {
+    const theme = this.getCurrentTheme();
+    this.renderer.apply(theme);
+
+    if (!this.renderer.toggle) {
+      return;
+    }
+
+    this.renderer.toggle.addEventListener("click", () => this.toggleTheme());
+
+    if (this.prefersDarkQuery) {
+      this.prefersDarkQuery.addEventListener("change", (e) => {
+        if (!this.storage.get()) {
+          this.renderer.apply(e.matches ? "dark" : "light");
+        }
+      });
+    }
+  }
+}
+
 class AdviceService {
   constructor() {
     this.apiUrl = "https://api.adviceslip.com";
@@ -17,7 +115,11 @@ class AdviceService {
   }
 
   buildAdviceUrl(slipId) {
-    return slipId ? `${this.apiUrl}/advice/${slipId}` : this.apiUrl;
+    const numericId = typeof slipId === 'number' ? slipId : parseInt(slipId, 10);
+    if (!Number.isInteger(numericId) || numericId <= 0) {
+      return this.apiUrl;
+    }
+    return `${this.apiUrl}/advice/${numericId}`;
   }
 }
 
@@ -26,7 +128,9 @@ class AdviceRenderer {
     this.adviceEl = document.getElementById("advice");
     this.citationEl = document.getElementById("advice-citation");
     this.citationLinkEl = this.citationEl.querySelector("a");
+    this.citationIdEl = this.citationLinkEl?.querySelector(".citation-id");
     this.button = document.getElementById("new-advice-btn");
+    this.loadingTemplate = document.getElementById("loading-template");
   }
 
   setAdviceText(text, citeUrl) {
@@ -36,7 +140,9 @@ class AdviceRenderer {
 
   showCitation(slipId, citeUrl) {
     this.citationLinkEl.href = citeUrl;
-    this.citationLinkEl.innerHTML = `#${slipId}<svg class="icon icon-external" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-labelledby="external-link-title"><title id="external-link-title">Opens in new tab</title><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/><path d="m21 3-9 9"/><path d="M15 3h6v6"/></svg>`;
+    if (this.citationIdEl) {
+      this.citationIdEl.textContent = `#${slipId}`;
+    }
     this.citationEl.classList.remove("hidden");
   }
 
@@ -55,7 +161,13 @@ class AdviceRenderer {
   }
 
   showLoading(baseUrl) {
-    this.setAdviceText("Loading advice...", baseUrl);
+    this.adviceEl.setAttribute("cite", baseUrl);
+    this.adviceEl.textContent = "";
+    if (this.loadingTemplate) {
+      this.adviceEl.appendChild(this.loadingTemplate.content.cloneNode(true));
+    } else {
+      this.adviceEl.textContent = "Loading advice...";
+    }
     this.hideCitation();
   }
 
@@ -89,6 +201,7 @@ class AdviceApp {
       const citeUrl = this.service.buildAdviceUrl(slip.id);
       this.renderer.showAdvice(slip, citeUrl);
     } catch (err) {
+      console.error("Failed to fetch advice:", err);
       this.renderer.showFallback(baseUrl);
     }
 
@@ -100,6 +213,9 @@ class AdviceApp {
     this.renderer.button.addEventListener("click", () => this.getNewAdvice());
   }
 }
+
+const themeManager = new ThemeManager();
+themeManager.init();
 
 const app = new AdviceApp();
 app.init();

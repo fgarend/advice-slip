@@ -15,6 +15,18 @@
   --transition-easing: ease;
 }
 
+[data-theme="dark"] {
+  --accent-color: hsl(175 20% 55%);
+  --accent-hover: hsl(175 20% 62%);
+  --accent-active: hsl(175 20% 70%);
+  --foreground-color: hsl(210 24% 90%);
+  --foreground-muted: hsl(210 14% 60%);
+  --background-color: hsl(215 18% 12%);
+  --surface-color: hsl(215 16% 16%);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 3px 4px 6px rgba(0, 0, 0, 0.6);
+}
+
 *,
 *::before,
 *::after {
@@ -84,6 +96,66 @@ main {
   color: var(--foreground-muted);
 }
 
+.theme-toggle {
+  position: absolute;
+  top: max(1.5rem, env(safe-area-inset-top) + 0.5rem);
+  right: max(1.5rem, env(safe-area-inset-right) + 0.5rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--surface-color);
+  color: var(--accent-color);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-duration) var(--transition-easing),
+              color var(--transition-duration) var(--transition-easing),
+              transform var(--transition-duration) var(--transition-easing),
+              box-shadow var(--transition-duration) var(--transition-easing);
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  background-color: var(--accent-color);
+  color: var(--surface-color);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.theme-toggle .icon-sun,
+.theme-toggle .icon-moon {
+  position: absolute;
+  transition: opacity 0.3s var(--transition-easing), transform 0.3s var(--transition-easing);
+}
+
+.theme-toggle .icon-sun {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.8);
+}
+
+.theme-toggle .icon-moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+[data-theme="dark"] .theme-toggle .icon-sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+[data-theme="dark"] .theme-toggle .icon-moon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.8);
+}
+
 .advice-card {
   margin: 2rem auto 0;
   width: min(90vw, 32rem);
@@ -124,6 +196,33 @@ main {
   content: close-quote;
   bottom: -6rem;
   right: -1rem;
+}
+
+.advice:has(.loading-state)::before,
+.advice:has(.loading-state)::after {
+  display: none;
+}
+
+.loading-state {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.loading-spinner {
+  flex-shrink: 0;
+  animation: spin 1s linear infinite;
+  color: var(--accent-color);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .advice-citation {
@@ -170,8 +269,7 @@ footer {
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
-  padding: 1.5rem;
-  background-color: var(--background-color);
+  padding: 1.5rem 1.5rem max(1.5rem, env(safe-area-inset-bottom));
 }
 
 footer a {
@@ -211,18 +309,18 @@ footer a:focus-visible {
   transition: transform 0.3s var(--transition-easing);
 }
 
-.cta-button:hover .icon-refresh,
-.cta-button:focus-visible .icon-refresh {
+.cta-button:not(:disabled):hover .icon-refresh,
+.cta-button:not(:disabled):focus-visible .icon-refresh {
   transform: rotate(180deg);
 }
 
-.cta-button:hover,
-.cta-button:focus-visible {
+.cta-button:not(:disabled):hover,
+.cta-button:not(:disabled):focus-visible {
   background-color: var(--accent-hover);
   box-shadow: var(--shadow-md);
 }
 
-.cta-button:active {
+.cta-button:not(:disabled):active {
   background-color: var(--accent-active);
   box-shadow: var(--shadow-sm);
 }

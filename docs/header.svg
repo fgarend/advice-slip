@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 120">
+  <!-- Background -->
+  <rect width="800" height="120" fill="#f4ede7"/>
+
+  <!-- Title: "Advice" in accent color -->
+  <text x="400" y="60"
+        font-family="'Lora', serif"
+        font-size="48"
+        font-weight="600"
+        text-anchor="middle"
+        fill="#2d6461">
+    Advice<tspan font-weight="700" fill="#223a3b">Slip</tspan>
+  </text>
+
+  <!-- Subtitle -->
+  <text x="400" y="95"
+        font-family="'Nunito', system-ui, sans-serif"
+        font-size="18"
+        font-weight="600"
+        font-style="italic"
+        text-anchor="middle"
+        fill="#5a6976">
+    Get inspired with random advice
+  </text>
+</svg>
