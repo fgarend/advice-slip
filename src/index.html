@@ -27,9 +27,13 @@
   <link rel="stylesheet" href="styles/print.css" media="print" />
 
   <script>
+    window.THEME_COLORS = { light: "#f4ede7", dark: "#18202b" };
+  </script>
+
+  <script>
     (function() {
       const validThemes = ["light", "dark"];
-      const themeColors = { light: "#f4ede7", dark: "#18202b" };
+      const themeColors = window.THEME_COLORS;
       let theme;
       try {
         const stored = localStorage.getItem("theme");

@@ -28,10 +28,7 @@ class ThemeStorage {
 
 class ThemeRenderer {
   constructor() {
-    this.themeColors = {
-      light: "#f4ede7",
-      dark: "#18202b"
-    };
+    this.themeColors = window.THEME_COLORS;
     this.toggle = document.getElementById("theme-toggle");
     this.metaThemeColor = document.querySelector('meta[name="theme-color"]');
   }
