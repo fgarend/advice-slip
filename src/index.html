@@ -45,6 +45,11 @@
       if (metaThemeColor) {
         metaThemeColor.setAttribute("content", themeColors[theme]);
       }
+      const toggle = document.getElementById("theme-toggle");
+      if (toggle) {
+        const label = theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+        toggle.setAttribute("aria-label", label);
+      }
     })();
   </script>
 </head>
