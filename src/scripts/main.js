@@ -115,7 +115,11 @@ class AdviceService {
   }
 
   buildAdviceUrl(slipId) {
-    return slipId ? `${this.apiUrl}/advice/${slipId}` : this.apiUrl;
+    const numericId = typeof slipId === 'number' ? slipId : parseInt(slipId, 10);
+    if (!Number.isInteger(numericId) || numericId <= 0) {
+      return this.apiUrl;
+    }
+    return `${this.apiUrl}/advice/${numericId}`;
   }
 }
 
