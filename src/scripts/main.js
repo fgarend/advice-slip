@@ -194,6 +194,7 @@ class AdviceApp {
       const citeUrl = this.service.buildAdviceUrl(slip.id);
       this.renderer.showAdvice(slip, citeUrl);
     } catch (err) {
+      console.error("Failed to fetch advice:", err);
       this.renderer.showFallback(baseUrl);
     }
 
