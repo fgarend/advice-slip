@@ -98,8 +98,8 @@ main {
 
 .theme-toggle {
   position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
+  top: max(1.5rem, env(safe-area-inset-top) + 0.5rem);
+  right: max(1.5rem, env(safe-area-inset-right) + 0.5rem);
   display: inline-flex;
   align-items: center;
   justify-content: center;
