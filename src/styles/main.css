@@ -208,10 +208,6 @@ main {
   flex-direction: row;
   align-items: center;
   gap: 1rem;
-  font-size: clamp(1.35rem, 3.5vw, 1.9rem);
-  font-family: var(--font-secondary);
-  font-style: italic;
-  font-weight: 600;
 }
 
 .loading-spinner {
