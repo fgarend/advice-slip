@@ -16,9 +16,9 @@
 }
 
 [data-theme="dark"] {
-  --accent-color: hsl(182 45% 65%);
-  --accent-hover: hsl(182 45% 72%);
-  --accent-active: hsl(182 45% 80%);
+  --accent-color: hsl(175 20% 55%);
+  --accent-hover: hsl(175 20% 62%);
+  --accent-active: hsl(175 20% 70%);
   --foreground-color: hsl(210 24% 90%);
   --foreground-muted: hsl(210 14% 60%);
   --background-color: hsl(215 18% 12%);
