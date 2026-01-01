@@ -308,18 +308,18 @@ footer a:focus-visible {
   transition: transform 0.3s var(--transition-easing);
 }
 
-.cta-button:hover .icon-refresh,
-.cta-button:focus-visible .icon-refresh {
+.cta-button:not(:disabled):hover .icon-refresh,
+.cta-button:not(:disabled):focus-visible .icon-refresh {
   transform: rotate(180deg);
 }
 
-.cta-button:hover,
-.cta-button:focus-visible {
+.cta-button:not(:disabled):hover,
+.cta-button:not(:disabled):focus-visible {
   background-color: var(--accent-hover);
   box-shadow: var(--shadow-md);
 }
 
-.cta-button:active {
+.cta-button:not(:disabled):active {
   background-color: var(--accent-active);
   box-shadow: var(--shadow-sm);
 }
