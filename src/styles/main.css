@@ -198,6 +198,31 @@ main {
   right: -1rem;
 }
 
+.loading-state {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  font-size: clamp(1.35rem, 3.5vw, 1.9rem);
+  font-family: var(--font-secondary);
+  font-style: italic;
+  font-weight: 600;
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite;
+  color: var(--accent-color);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .advice-citation {
   margin-top: 1.5rem;
   padding-right: 1.5rem;
