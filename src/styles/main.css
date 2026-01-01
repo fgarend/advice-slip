@@ -198,6 +198,11 @@ main {
   right: -1rem;
 }
 
+.advice:has(.loading-state)::before,
+.advice:has(.loading-state)::after {
+  display: none;
+}
+
 .loading-state {
   display: flex;
   flex-direction: row;
