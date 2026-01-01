@@ -99,6 +99,7 @@
 
   .advice-citation,
   .cta-button,
+  .theme-toggle,
   footer {
     display: none !important;
   }
