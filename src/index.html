@@ -63,12 +63,16 @@
     <h1 class="title">Advice<span class="accent">Slip</span></h1>
     <p class="subtitle">Get inspired with random advice</p>
 
+    <template id="loading-template">
+      <div class="loading-state">
+        <svg class="loading-spinner" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+        Loading advice...
+      </div>
+    </template>
+
     <figure class="advice-card" id="advice-container">
       <blockquote id="advice" class="advice" cite="https://api.adviceslip.com/" aria-live="polite">
-        <div class="loading-state">
-          <svg class="loading-spinner" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-          Loading advice...
-        </div>
+        Loading...
       </blockquote>
       <figcaption id="advice-citation" class="advice-citation hidden">
         — Advice Slip API <a href="https://api.adviceslip.com" target="_blank" rel="noopener noreferrer"><span class="citation-id">#000</span><svg class="icon icon-external" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/><path d="m21 3-9 9"/><path d="M15 3h6v6"/></svg></a>
