@@ -215,6 +215,7 @@ main {
 }
 
 .loading-spinner {
+  flex-shrink: 0;
   animation: spin 1s linear infinite;
   color: var(--accent-color);
 }
